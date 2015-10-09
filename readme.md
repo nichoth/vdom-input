@@ -13,13 +13,21 @@
 ```js
 var createElement = require('virtual-dom/create-element');
 var h = require('virtual-dom/h');
-var Input = require('../Input.js');
+var Input = require('vdom-input');
 
 // return observable state object (instance of `observ-struct`)
 var state = Input({
   value: 'example',
 
-  // called on tab in an input that contains text
+  // passed to html element
+  attrs: {
+    style: {
+      color: 'red'
+    },
+    placeholder: 'placeholder'
+  },
+
+  // tab in an input that contains text
   onComplete: function() {
     console.log('complete');
   }
