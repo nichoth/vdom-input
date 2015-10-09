@@ -4,7 +4,16 @@ var Input = require('../Input.js');
 
 // return observable state object
 var state = Input({
+
   value: 'example',
+
+  // passed to html element
+  attrs: {
+    style: {
+      color: 'red'
+    },
+    placeholder: 'placeholder'
+  },
 
   // tab in an input that contains text
   onComplete: function() {

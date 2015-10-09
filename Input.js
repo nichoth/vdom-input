@@ -2,6 +2,7 @@ var h = require('virtual-dom/h');
 var state = require('@nichoth/state');
 var value = require('observ');
 var codes = require('@nichoth/keycodes');
+var extend = require('xtend');
 var noop = function() {};
 
 module.exports = Input;
@@ -11,8 +12,13 @@ function Input(opts) {
   opts = opts || {};
   opts.onComplete = opts.onComplete || noop;
 
+  var defaults = {
+    type: 'text',
+  };
+
   var s = state({
     value: value( opts.value || '' ),
+    attrs: extend(defaults, opts.attrs),
     handles: {
       onChange: onChange(),
       onComplete: onComplete()
@@ -39,11 +45,10 @@ Input.hasValue = function(state) {
 };
 
 Input.render = function(state) {
-  return h('input.vdom-input', {
-    type: 'text',
+
+  var attrs = extend(state.attrs, {
     value: state.value,
     oninput: function(ev) {
-      console.log(ev.target);
       state.handles.onChange({ value: ev.target.value });
     },
     onkeydown: function(ev) {
@@ -54,5 +59,7 @@ Input.render = function(state) {
         }
       }
     }
-  }, []);
+  });
+
+  return h('input.vdom-input', attrs, []);
 };
