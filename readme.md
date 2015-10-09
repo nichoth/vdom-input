@@ -15,7 +15,7 @@ var createElement = require('virtual-dom/create-element');
 var h = require('virtual-dom/h');
 var Input = require('../Input.js');
 
-// return observable state object
+// return observable state object (instance of `observ-struct`)
 var state = Input({
   value: 'example',
 
@@ -33,7 +33,7 @@ document.getElementById('content').appendChild(el);
 ```
 
 
-## other methods
+## methods
 
 ### Input.hasValue(state)
 
