@@ -1,5 +1,5 @@
-var createElement = require('virtual-dom/create-element');
-var h = require('virtual-dom/h');
+var vdom = require('virtual-dom');
+var h = vdom.h;
 var Input = require('../Input.js');
 
 // return observable state object
@@ -18,11 +18,17 @@ var state = Input({
   // tab in an input that contains text
   onComplete: function() {
     console.log('complete');
+  },
+  // backspace in an input without any value
+  onDelete: function() {
+    console.log("delete");
   }
 
 });
 
-var virtualEl = Input.render( state() );
-var el = createElement(virtualEl);
+// var virtualEl = Input.render( state() );
+// var el = createElement(virtualEl);
 
-document.getElementById('content').appendChild(el);
+var loop = require('main-loop')(state(), Input.render, vdom);
+state(loop.update);
+document.getElementById('content').appendChild(loop.target);

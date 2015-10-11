@@ -11,6 +11,7 @@ function Input(opts) {
 
   opts = opts || {};
   opts.onComplete = opts.onComplete || noop;
+  opts.onDelete = opts.onDelete || noop;
 
   var defaults = {
     type: 'text',
@@ -21,6 +22,7 @@ function Input(opts) {
     attrs: extend(defaults, opts.attrs),
     handles: {
       onChange: onChange(),
+      onDelete: onDelete(),
       onComplete: onComplete()
     }
   });
@@ -28,6 +30,12 @@ function Input(opts) {
   function onChange() {
     return function(data) {
       s.value.set(data.value);
+    };
+  }
+
+  function onDelete() {
+    return function() {
+      opts.onDelete();
     };
   }
 
@@ -56,6 +64,13 @@ Input.render = function(state) {
       if ( ev.keyCode === codes.tab && !ev.shiftKey ) {
         if ( state.value ) {
           state.handles.onComplete();
+        }
+      }
+
+      // backspace in an input with no value
+      if ( ev.keyCode === codes.backspace ) {
+        if ( !state.value ) {
+          state.handles.onDelete();
         }
       }
     }
