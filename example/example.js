@@ -26,9 +26,6 @@ var state = Input({
 
 });
 
-// var virtualEl = Input.render( state() );
-// var el = createElement(virtualEl);
-
 var loop = require('main-loop')(state(), Input.render, vdom);
 state(loop.update);
 document.getElementById('content').appendChild(loop.target);
