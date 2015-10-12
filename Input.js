@@ -3,7 +3,9 @@ var state = require('@nichoth/state');
 var value = require('observ');
 var codes = require('@nichoth/keycodes');
 var extend = require('xtend');
+var FocusHook = require('virtual-dom/virtual-hyperscript/hooks/focus-hook.js');
 var noop = function() {};
+
 
 module.exports = Input;
 
@@ -15,6 +17,7 @@ function Input(opts) {
 
   var defaults = {
     type: 'text',
+    'focus-this': opts.focus ? new FocusHook() : false
   };
 
   var s = state({
@@ -40,8 +43,8 @@ function Input(opts) {
   }
 
   function onComplete() {
-    return function() {
-      opts.onComplete();
+    return function(ev) {
+      opts.onComplete(ev);
     };
   }
 
@@ -62,14 +65,13 @@ Input.render = function(state) {
     onkeydown: function(ev) {
       // tab in input with a value
       if ( ev.keyCode === codes.tab && !ev.shiftKey ) {
-        if ( state.value ) {
-          state.handles.onComplete();
+        if ( state.value && state.handles.onComplete ) {
+          state.handles.onComplete(ev);
         }
       }
-
       // backspace in an input with no value
       if ( ev.keyCode === codes.backspace ) {
-        if ( !state.value ) {
+        if ( !state.value && state.handles.onDelete ) {
           state.handles.onDelete();
         }
       }
