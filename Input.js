@@ -52,7 +52,7 @@ function Input(opts) {
 }
 
 Input.hasValue = function(state) {
-  return !!state.value();
+  return !!state.value;
 };
 
 Input.render = function(state) {
