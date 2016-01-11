@@ -2,7 +2,7 @@
   "name": "vdom-input",
   "description": "virtual-dom wrapper around input element",
   "main": "Input.js",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "keywords": [
     "virtual-dom",
     "mercury",
