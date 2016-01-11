@@ -51,6 +51,10 @@ function Input(opts) {
   return s;
 }
 
+Input.value = function(data) {
+  return data.value;
+};
+
 Input.hasValue = function(state) {
   return !!state.value;
 };
