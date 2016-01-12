@@ -59,6 +59,10 @@ Input.hasValue = function(state) {
   return !!state.value;
 };
 
+Input.set = function(state, value) {
+  state.value.set(value);
+};
+
 Input.render = function(state) {
 
   var attrs = extend(state.attrs, {
