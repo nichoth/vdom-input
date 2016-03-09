@@ -1,4 +1,3 @@
-var h = require('virtual-dom/h');
 var state = require('@nichoth/state');
 var value = require('observ');
 var codes = require('@nichoth/keycodes');
@@ -63,7 +62,7 @@ Input.set = function(state, value) {
   state.value.set(value);
 };
 
-Input.render = function(state) {
+Input.render = function(h, state) {
 
   var attrs = extend(state.attrs, {
     value: state.value,
